@@ -1,5 +1,5 @@
 const fs = require("fs");
-web3 = require("./web3_config")
+const web3 = require("./web3")
 
 const compiledContract = fs.readFileSync("./contracts/Voting.json");
 const contracts = JSON.parse(compiledContract)["contracts"];

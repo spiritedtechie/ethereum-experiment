@@ -2,7 +2,7 @@ Based on tutorial from here: https://medium.com/@mvmurthy/full-stack-hello-world
 
 # Prerequisites
 
-1. Install solc if you compile using this approach rather than via javascript
+1. Install solc if you compile Solidity using this approach rather than via Javascript
 
 https://solidity.readthedocs.io/en/develop/installing-solidity.html
 
@@ -30,7 +30,7 @@ npm install ethereumjs-testrpc web3@0.20.1 solc
 
 # Development Setup & Workflow
 
-1. Get local account. These are the public key addresses:
+1. Get a list of local testrpc accounts. These are the public key addresses:
 
 ```
 node get_accounts.js

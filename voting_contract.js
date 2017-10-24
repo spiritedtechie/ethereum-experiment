@@ -1,6 +1,6 @@
 // web3 is an Ethereum client library
 const fs = require("fs");
-web3 = require('./web3_config.js')
+const web3 = require('./web3.js')
 
 // Get abi from compiled contract
 const compiledContract = fs.readFileSync("./contracts/Voting.json");
