@@ -51,3 +51,20 @@ node compile.js
 ```
 node deploy_contract.js
 ```
+
+5. Interact with contract programmatically via the Node console
+
+```
+node
+votingContract = require('./voting_contract')
+instance = votingContract.instance('0xb511274cc89934766ec073b1f44ae7ca5f57f962')
+instance.totalVotesFor.call('Bob')
+
+instance.voteForCandidate('Bob', {from: web3.eth.accounts[0]})
+instance.totalVotesFor.call('Bob')
+
+instance.voteForCandidate('Bob', {from: web3.eth.accounts[1]})
+instance.totalVotesFor.call('Bob')
+```
+
+Check out the testrpc console output whilst you are doing this.

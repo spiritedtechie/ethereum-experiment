@@ -1,24 +1,21 @@
 const fs = require("fs");
-const Web3Configured = require("./web3_config")
-const web3 = Web3Configured.web3
+web3 = require("./web3_config")
 
 const compiledContract = fs.readFileSync("./contracts/Voting.json");
 const contracts = JSON.parse(compiledContract)["contracts"];
-const votingContract = contracts[':Voting']
-const votingContractAbi = JSON.parse(votingContract.interface);
-const votingContractByteCode = votingContract.bytecode;
+const votingContractAbi = JSON.parse(contracts[':Voting'].interface);
+const votingContractByteCode = contracts[':Voting'].bytecode;
 
-console.log("Contract interface: ")
+console.log("Contract interface (ABI): ")
 console.log(votingContractAbi)
-
-console.log("Deploying contract... ")
-const VotingContract = web3.eth.contract(votingContractAbi)
 
 // deploy contract using first account in local blockchain
 // obviously only useful for local testing
 // in a real blockchain, you would have to use a real accounts
 // and unlock it first before transacting
-VotingContract.new(
+console.log("Deploying contract... ")
+const votingContract = web3.eth.contract(votingContractAbi)
+votingContract.new(
   ['Bob', 'Tom', 'Joe'],
   {
     data: votingContractByteCode,

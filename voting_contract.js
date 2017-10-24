@@ -1,9 +1,19 @@
 // web3 is an Ethereum client library
-const web3 = require('web3_config.js')
+const fs = require("fs");
+web3 = require('./web3_config.js')
 
 // Get abi from compiled contract
-const abi = require('../solidity/build/contracts/Voting.json').abi;
-// create contract interaction object
-const VotingContract = web3.eth.contract(abi);
+const compiledContract = fs.readFileSync("./contracts/Voting.json");
+const contracts = JSON.parse(compiledContract)["contracts"];
+const votingContractAbi = JSON.parse(contracts[':Voting'].interface);
 
-module.exports = VotingContract;
+// create contract interaction object
+const votingContract = web3.eth.contract(votingContractAbi);
+
+const contractInstance = function(address) {
+  return votingContract.at(address)
+}
+
+module.exports = {
+  instance: contractInstance
+};
