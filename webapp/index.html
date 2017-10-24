@@ -9,6 +9,19 @@
 
 <body class="container">
   <h1>Ethereum Voting</h1>
+  <br/>
+
+  <div>
+    Contract address: <input type="text" id="contract_address" value="0xb511274cc89934766ec073b1f44ae7ca5f57f962" placeholder="Contract address"/>
+    <a href="#" onclick="loadVoteContractState()" class="btn btn-primary">Load Vote State</a>
+  </div>
+  <br/>
+
+  <div>
+    Identity (key): <input type="text" id="identity" value="0x8ebec4cd544c5876cfa5f33ac3b9c4c0b337e6be" placeholder="Your public key"/>
+  </div>
+  <br/>
+
   <div class="table-responsive">
     <table class="table table-bordered">
       <thead>
