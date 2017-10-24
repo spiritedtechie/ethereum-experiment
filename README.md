@@ -33,13 +33,13 @@ npm install ethereumjs-testrpc web3@0.20.1 solc
 1. Get a list of local testrpc accounts. These are the public key addresses:
 
 ```
-node get_accounts.js
+node ./lib/get_accounts.js
 ```
 
 2. Compile contract using Javascript
 
 ```
-node compile.js
+node ./build/compile.js
 ```
 
 3. Compile contract using solc
@@ -49,21 +49,21 @@ node compile.js
 4. Deploy contract
 
 ```
-node deploy_contract.js
+node ./build/deploy_contract.js
 ```
 
 5. Interact with contract programmatically via the Node console
 
 ```
 node
-votingContract = require('./voting_contract')
+votingContract = require('./lib/voting_contract')
 instance = votingContract.instance('0xb511274cc89934766ec073b1f44ae7ca5f57f962')
 instance.totalVotesFor.call('Bob')
 
-instance.voteForCandidate('Bob', {from: web3.eth.accounts[0]})
+instance.voteForCandidate('Bob', {from: '0x95b5e727b6d981b8bf0cf70d5a5728cb280dd884'})
 instance.totalVotesFor.call('Bob')
 
-instance.voteForCandidate('Bob', {from: web3.eth.accounts[1]})
+instance.voteForCandidate('Bob', {from: '0x95b5e727b6d981b8bf0cf70d5a5728cb280dd884'})
 instance.totalVotesFor.call('Bob')
 ```
 

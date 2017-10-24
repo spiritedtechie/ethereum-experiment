@@ -1,7 +1,9 @@
 const fs = require("fs");
-const web3 = require("./web3")
+const path = require('path');
+const web3 = require("../lib/web3")
 
-const compiledContract = fs.readFileSync("./contracts/Voting.json");
+const contractsDir = path.join(__dirname, '..', 'contracts');
+const compiledContract = fs.readFileSync(path.join(contractsDir, "Voting.json"));
 const contracts = JSON.parse(compiledContract)["contracts"];
 const votingContractAbi = JSON.parse(contracts[':Voting'].interface);
 const votingContractByteCode = contracts[':Voting'].bytecode;
