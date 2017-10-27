@@ -8,17 +8,17 @@
 </head>
 
 <body class="container">
-  <h1>Ethereum Voting</h1>
+  <h1>Ethereum Polling Station</h1>
   <br/>
 
   <div>
-    Contract address: <input type="text" id="contract_address" value="0xb511274cc89934766ec073b1f44ae7ca5f57f962" placeholder="Contract address"/>
-    <a href="#" onclick="loadVoteContractState()" class="btn btn-primary">Load Vote State</a>
+    Poll address: <input type="text" id="contract_address" value="0xc2cc5d9d8e68f9fbeeda1d993c4767742fedb0d7" placeholder="Contract address"/>
+    <a href="#" onclick="loadPoll()" class="btn btn-primary">Load Poll</a>
   </div>
   <br/>
 
   <div>
-    Identity (key): <input type="text" id="identity" value="0x8ebec4cd544c5876cfa5f33ac3b9c4c0b337e6be" placeholder="Your public key"/>
+    Voter Identity (key): <input type="text" id="voter_identity" value="0x38aafa5737d0900965ed1c905f9aacedb63bae5e" placeholder="Your public key"/>
   </div>
   <br/>
 
@@ -28,27 +28,14 @@
         <tr>
           <th>Candidate</th>
           <th>Votes</th>
+          <th>Submit Vote</th>
         </tr>
       </thead>
-      <tbody id="t">
-        <tr>
-          <td>Bob</td>
-          <td id="bob"></td>
-        </tr>
-        <tr>
-          <td>Tom</td>
-          <td id="tom"></td>
-        </tr>
-        <tr>
-          <td>Joe</td>
-          <td id="joe"></td>
-        </tr>
-      </tbody>
+      <tbody id="voting-table" />
     </table>
   </div>
-  <input type="text" id="candidate" />
-  <a href="#" onclick="voteForCandidate()" class="btn btn-primary">Vote</a>
 </body>
+
 <script src="https://cdn.rawgit.com/ethereum/web3.js/develop/dist/web3.js"></script>
 <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
 <script type="text/javascript" src="./Voting-Interface.json"></script>

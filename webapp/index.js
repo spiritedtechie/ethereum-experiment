@@ -1,58 +1,93 @@
 const web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
 const VotingContract = web3.eth.contract(abi);
-var contractInstance;
+var pollInstance;
 
 // No apparent way to return arrays from Solidity contract
-const candidateNames = ["Bob", "Tom", "Joe"]
+const candidates = [
+  {id: "1", name: "Bob"},
+  {id: "2", name: "Tom"},
+  {id: "3", name: "Joe"}
+];
 
-function loadVoteContractState() {
-  contractAddress = $("#contract_address").val()
-  contractInstance = VotingContract.at(contractAddress);
-  for (var i = 0; i < candidateNames.length; i++) {
-    let name = candidateNames[i];
-    let val = contractInstance.totalVotesFor.call(name, function(err, result) {
-      if (err) {
-        alert("Problem fetching vote state: " + err)
-      } else {
-        $("#" + name.toLowerCase()).html(result.toString());
-      }
-    })
+function loadPollInstance() {
+  const contractAddress = $("#contract_address").val();
+  if (!contractAddress) {
+    alert("Cannot load poll as address not provided");
+    return;
+  }
+
+  if (!pollInstance || pollInstance.address != contractAddress) {
+    pollInstance = VotingContract.at(contractAddress);
+  } else {
+    // do nothing as already loaded
   }
 }
 
-function voteForCandidate() {
-  if (!contractInstance) {
-    alert("You need to enter the contract address first")
-    return
+function updatePollState() {
+  for (var i = 0; i < candidates.length; i++) {
+    let candidate = candidates[i];
+    pollInstance.totalVotesFor.call(candidate.name, function(err, result) {
+      if (err) {
+        alert("Problem fetching vote count: " + err);
+      } else {
+        $("#vote_count_" + candidate.id).html(result.toString());
+      }
+    });
   }
+}
 
-  const userIdentity = $("#identity").val();
-  if (!userIdentity){
+function loadPoll() {
+  loadPollInstance();
+  updatePollState();
+}
+
+function voteForCandidate(_candidateId) {
+  if (!pollInstance) loadPoll();;
+
+  // validation
+  const voterIdentity = $("#voter_identity").val();
+  if (!voterIdentity){
     alert("You need to enter your identity/public key")
     return
   }
 
-  const candidateName = $("#candidate").val();
-  if (!candidateName){
-    alert("You need to enter the candidate's name")
-    return
-  }
+  // find candidate details using id
+  const candidate = candidates.find(item => {
+    return item.id === _candidateId
+  })
 
   // action vote
-  contractInstance.voteForCandidate(
-    candidateName,
-    {
-      from: userIdentity
-    },
-    function() {
-      $("#" + candidateName.toLowerCase()).html(contractInstance.totalVotesFor.call(candidateName).toString());
-    });
+  pollInstance.voteForCandidate(
+    candidate.name,
+    { from: voterIdentity },
+    function() { updatePollState() });
 }
 
-// Load contract/vote state on page ready (if possible)
-$(document).ready(function() {
-  contractAddress = $("#contract_address").val()
-  if (contractAddress) {
-    loadVoteContractState()
+function createVotesTable() {
+  for (let i = 0; i < candidates.length; i++) {
+    let candidate = candidates[i];
+    $("#voting-table").append(
+      '<tr>' +
+        '<td id="candidate_' + candidate.id  + '">' + candidate.name + '</td>' +
+        '<td id="vote_count_' + candidate.id + '"></td>'+
+        '<td class="vote_button_container">' +
+          '<a id="vote_button_' + candidate.id + '" href="#" class="vote_button btn btn-primary">Vote</a>' +
+        '</td>' +
+      '</tr>')
   }
+}
+
+function listenForVote() {
+  $(document).ready(function() {
+    $('.vote_button').click(function() {
+      const candidateId = $(this)[0].id.replace("vote_button_", "")
+      voteForCandidate(candidateId)
+    });
+  });
+}
+
+$(document).ready(function() {
+  createVotesTable();
+  loadPoll();
+  listenForVote();
 });
