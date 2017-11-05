@@ -2,7 +2,7 @@ Based on tutorial from here: https://medium.com/@mvmurthy/full-stack-hello-world
 
 # Prerequisites
 
-1. Install solc if you compile Solidity using this approach rather than via Javascript
+1. Solc - if you compile Solidity using the command line rather than via Javascript
 
 https://solidity.readthedocs.io/en/develop/installing-solidity.html
 
@@ -18,11 +18,15 @@ brew linkapps solidity
 
 2. Install npm modules. In the project root:
 
+ethereumjs-testrpc - test Ethereum server that can be ran locally
+solc - compilation library for Solidity contracts
+web3 - client library for Ethereum
+
 ```
 npm install ethereumjs-testrpc web3@0.20.1 solc
 ```
 
-3. Start the local Ethereum Blockchain and server
+3. Start the local Ethereum Blockchain and server in a background terminal:
 
 ```
 ./node_modules/.bin/testrpc
@@ -36,35 +40,35 @@ npm install ethereumjs-testrpc web3@0.20.1 solc
 node ./lib/get_accounts.js
 ```
 
-2. Compile contract using Javascript
+2. Compile/deploy the contract, and build the web application:
 
 ```
-node ./build/compile.js
+node ./build/build.js
 ```
 
-3. Compile contract using solc
+Note down the contract address, as you will need it for the web app.
 
-???
+# Poll Station Command Line application
 
-4. Deploy contract
-
-```
-node ./build/deploy_contract.js
-```
-
-5. Interact with contract programmatically via the Node console
+Interact with contract programmatically via the Node console
 
 ```
 node
 votingContract = require('./lib/voting_contract')
-instance = votingContract.instance('0xb511274cc89934766ec073b1f44ae7ca5f57f962')
+instance = votingContract.instance('<contract_address>')
 instance.totalVotesFor.call('Bob')
 
-instance.voteForCandidate('Bob', {from: '0x95b5e727b6d981b8bf0cf70d5a5728cb280dd884'})
+instance.voteForCandidate('Bob', {from: '<user_account_public_key>'})
 instance.totalVotesFor.call('Bob')
 
-instance.voteForCandidate('Bob', {from: '0x95b5e727b6d981b8bf0cf70d5a5728cb280dd884'})
+instance.voteForCandidate('Bob', {from: '<user_account_public_key>'})
 instance.totalVotesFor.call('Bob')
 ```
 
 Check out the testrpc console output whilst you are doing this.
+
+# Poll Station Web Application
+
+Once the build is complete, open the file <project_root>/build-out/webapp/index.html in a browser.
+
+Vote for someone!

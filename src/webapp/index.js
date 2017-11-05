@@ -2,13 +2,6 @@ const web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
 const VotingContract = web3.eth.contract(abi);
 var pollInstance;
 
-// No apparent way to return arrays from Solidity contract
-const candidates = [
-  {id: "1", name: "Bob"},
-  {id: "2", name: "Tom"},
-  {id: "3", name: "Joe"}
-];
-
 function loadPollInstance() {
   const contractAddress = $("#contract_address").val();
   if (!contractAddress) {
