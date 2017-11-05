@@ -4,7 +4,7 @@ This experiment uses a raw Javascript/Node environment, with all compilation/dep
 
 I will likely create another repo, for the same Polling Station application but build using Truffle development framework, which is the recommended way to develop DApps. 
 
-This 'lower level of abstraction' approach was chosen to closer to learning how it all works underneath the covers.
+This 'lower level of abstraction' approach was chosen to get closer to the APIs and understand how stuff works underneath the covers.
 
 # Prerequisites
 
