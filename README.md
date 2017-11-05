@@ -48,9 +48,9 @@ node ./build/build.js
 
 Note down the contract address, as you will need it for the web app.
 
-# Polling Station Command Line Interface
+# Polling Station Programmatic Interface
 
-Interact with contract programmatically via the Node console
+Once the build is complete, you can interact with contract programmatically via the Node console
 
 ```
 node
@@ -67,7 +67,7 @@ instance.totalVotesFor.call('Bob')
 
 Check out the testrpc console output whilst you are doing this.
 
-# Polling Station Web Application
+# Polling Station Web Interface
 
 Once the build is complete, open the file <project_root>/build-out/webapp/index.html in a browser.
 
