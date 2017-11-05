@@ -1,5 +1,11 @@
 Based on tutorial from here: https://medium.com/@mvmurthy/full-stack-hello-world-voting-ethereum-dapp-tutorial-part-1-40d2d0d807c2
 
+This experiment uses a raw Javascript/Node environment, with all compilation/deployment/interaction of the Ethereum contract performed via Javascript code, using the solc and web3 libraries. 
+
+I will likely create another repo, for the same Polling Station application but build using Truffle development framework, which is the recommended way to develop DApps. 
+
+This 'lower level of abstraction' approach was chosen to closer to learning how it all works underneath the covers.
+
 # Prerequisites
 
 1. Solc - if you compile Solidity using the command line rather than via Javascript
